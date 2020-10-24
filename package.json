@@ -1,0 +1,34 @@
+{
+  "name": "uphere",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "Andrew Moss <andrew@m0ss.dev>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "prepare": "yarn run build",
+    "lint": "eslint --fix --ext .ts .",
+    "pkg-ok": "pkg-ok",
+    "test": "jest",
+    "prebuild": "rimraf dist",
+    "build": "tsc"
+  },
+  "engines": {
+    "node": "12.X",
+    "yarn": ">=1.19.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.5.0",
+    "@typescript-eslint/parser": "^4.5.0",
+    "eslint": "^7.12.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "pkg-ok": "^2.3.1",
+    "typescript": "^4.0.3"
+  }
+}
