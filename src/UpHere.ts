@@ -4,6 +4,24 @@ import {
   ContainerClient,
 } from "@azure/storage-blob";
 
+import {
+  left,
+  right,
+  Right,
+  Left,
+} from "fp-ts/lib/Either";
+
+type __UpHere__<T> = Right<T> | Left<Error>
+
+type Up = {
+  url: string,
+  blobName: string,
+  accountName: string,
+  fileSize: number,
+  fileName: string,
+  fileType: string,
+}
+
 export class UpHere {
   account: string;
   accountSas: string;
@@ -16,11 +34,11 @@ export class UpHere {
   }
 
   /**
-   * Upload to Azure in browser
+   * Upload to Azure blob storage in browser
    * @param file
    * @param blockBlobClient
    */
-  uploadToAzure = async (file: File) => {
+  uploadToAzure = async (file: File): Promise<__UpHere__<Up>> => {
     try {
       const blockBlobClient = this.azGetBlockBlobClient(
         file.name,
@@ -35,18 +53,26 @@ export class UpHere {
         },
       });
 
-      return {
+      return right({
         url: blockBlobClient.url,
         blobName: blockBlobClient.name,
         accountName: blockBlobClient.accountName,
         fileSize: file.size,
         fileName: file.name,
         fileType: file.type,
-      };
-    } catch (err) {
-      throw err;
+      });
+    } catch (err: unknown) {
+      return left(err as Error)
     }
   };
+
+  deleteBlob = async (blobName: string) => {
+    const blockBlobClient = this.azGetBlockBlobClient(
+      blobName,
+      this.azGetContainerClient(this.azGetBlobServiceClient())
+    );
+    return await blockBlobClient.delete();
+  }
 
   /**
    *
