@@ -2,14 +2,14 @@ import {
   AnonymousCredential,
   BlobServiceClient,
   ContainerClient,
-} from "@azure/storage-blob";
+} from '@azure/storage-blob';
 
 import {
   left,
   right,
   Right,
   Left,
-} from "fp-ts/lib/Either";
+} from 'fp-ts/lib/Either';
 
 type __UpHere__<T> = Right<T> | Left<Error>
 
@@ -24,7 +24,9 @@ type Up = {
 
 export class UpHere {
   account: string;
+
   accountSas: string;
+
   containerName: string;
 
   constructor(account: string, accountSas: string, containerName: string) {
@@ -42,7 +44,7 @@ export class UpHere {
     try {
       const blockBlobClient = this.azGetBlockBlobClient(
         file.name,
-        this.azGetContainerClient(this.azGetBlobServiceClient())
+        this.azGetContainerClient(this.azGetBlobServiceClient()),
       );
 
       await blockBlobClient.uploadBrowserData(file, {
@@ -62,14 +64,14 @@ export class UpHere {
         fileType: file.type,
       });
     } catch (err: unknown) {
-      return left(err as Error)
+      return left(err as Error);
     }
   };
 
   deleteBlob = async (blobName: string) => {
     const blockBlobClient = this.azGetBlockBlobClient(
       blobName,
-      this.azGetContainerClient(this.azGetBlobServiceClient())
+      this.azGetContainerClient(this.azGetBlobServiceClient()),
     );
     return await blockBlobClient.delete();
   }
@@ -81,24 +83,20 @@ export class UpHere {
    */
   azGetBlockBlobClient = (
     blobName: string,
-    containerClient: ContainerClient
-  ) => {
-    return containerClient.getBlockBlobClient(blobName);
-  };
+    containerClient: ContainerClient,
+  ) => containerClient.getBlockBlobClient(blobName);
 
   /**
    *
    * @param blobServiceClient
    */
-  azGetContainerClient = (blobServiceClient: BlobServiceClient) => {
-    return blobServiceClient.getContainerClient(this.containerName);
-  };
+  azGetContainerClient = (blobServiceClient: BlobServiceClient) => blobServiceClient.getContainerClient(this.containerName);
 
   azGetBlobServiceClient = () => {
     const anonymousCredential = new AnonymousCredential();
     return new BlobServiceClient(
       `https://${this.account}.blob.core.windows.net${this.accountSas}`,
-      anonymousCredential
+      anonymousCredential,
     );
   };
 }

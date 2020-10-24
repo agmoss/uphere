@@ -8,12 +8,16 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "prepare": "yarn run build",
+    "build": "rollup -c",
     "lint": "eslint --fix --ext .ts .",
-    "pkg-ok": "pkg-ok",
     "test": "jest",
+    "pkg-ok": "pkg-ok",
     "prebuild": "rimraf dist",
-    "build": "rollup -c"
+    "prepare": "yarn run build",
+    "version": "git add -A",
+    "postversion": "git push && git push --tags",
+    "prepublishOnly": "yarn run pkg-ok",
+    "prepublish": "rm -rf ./dist && yarn run build"
   },
   "engines": {
     "node": "12.X",
