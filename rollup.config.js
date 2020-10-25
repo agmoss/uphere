@@ -13,10 +13,9 @@ export default {
     {
       file: pkg.main,
       sourcemap: true,
-      format: "umd",
+      format: "cjs",
       exports: "named",
-      name: "main",
-    },
+    }
   ],
   plugins: [
     shim({
@@ -35,7 +34,7 @@ export default {
     }),
     typescript({
       rollupCommonJSResolveHack: true,
-      exclude: "**/__tests__/**",
+      exclude: "**/__test__/**",
       clean: true,
       tsconfig: "./tsconfig.json",
     }),

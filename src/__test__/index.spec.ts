@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-import { UpHere } from '../index';
+import { UpHere } from '../UpHere';
 
 describe(UpHere.name, () => {
   const fileName = 'filename';

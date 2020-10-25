@@ -6,18 +6,30 @@ interface IUploadFile {
   accountName: string;
   accountSas: string;
   containerName: string;
+  onSuccess<T>(t: T): void;
+  onError<E>(e: E): void;
 }
 export const UploadFile: React.FC<IUploadFile> = ({
   accountName,
   accountSas,
   containerName,
+  onSuccess,
+  onError,
 }: IUploadFile) => {
   const upHere = new UpHere(accountName, accountSas, containerName);
 
   const inputFileRef = useRef<HTMLInputElement>(null);
 
-  const uploadFiles = (files: FileList | null) =>
-    files && upHere.uploadToAzure(files[0]);
+  const uploadFiles = async (files: FileList | null) => {
+    if (files) {
+      const result = await upHere.uploadToAzure(files[0]);
+      if (result._tag === "Right") {
+        onSuccess(result.right);
+      } else {
+        onError(result.left);
+      }
+    }
+  };
 
   const showFileDialog = () =>
     inputFileRef.current && inputFileRef.current.click();
