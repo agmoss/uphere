@@ -23,9 +23,10 @@ type Up = {
 }
 
 export class UpHere {
-
   account: string;
+
   accountSas: string;
+
   containerName: string;
 
   constructor(account: string, accountSas: string, containerName: string) {
@@ -72,7 +73,7 @@ export class UpHere {
       blobName,
       this.azGetContainerClient(this.azGetBlobServiceClient()),
     );
-    return await blockBlobClient.delete();
+    return blockBlobClient.delete();
   }
 
   /**

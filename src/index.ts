@@ -1,2 +1,3 @@
 export { UpHere } from './UpHere';
-export { UploadFile } from "./UploadFile";
+export { SimpleUpload } from './components/SimpleUpload';
+export { withUpHere } from './components/withUpHere';
