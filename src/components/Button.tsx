@@ -1,17 +1,19 @@
+import { Button, ButtonTypeMap, ButtonProps } from '@material-ui/core';
 import React, { useRef } from 'react';
-
 import { UpHere } from '../UpHere';
 import { IUpHereComponent } from './util/IUpHere';
 import { uploadFiles } from './util/uploadFiles';
 
-export const SimpleUpload: React.FC<IUpHereComponent> = ({
-  accountName,
-  accountSas,
-  containerName,
-  multiple,
-  onSuccess,
-  onError,
-}: IUpHereComponent) => {
+export const UpHereButton = (p: IUpHereComponent) => <
+  D extends React.ElementType = ButtonTypeMap['defaultComponent'],
+  P = {}
+>(
+    props: ButtonProps<D, P>,
+  ) => {
+  const {
+    accountName, accountSas, containerName, onSuccess, onError, multiple,
+  } = p;
+
   const upHere = new UpHere(accountName, accountSas, containerName);
 
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -27,7 +29,8 @@ export const SimpleUpload: React.FC<IUpHereComponent> = ({
         multiple={multiple}
         onChange={(e) => uploadFiles({ multiple, onError, onSuccess }, upHere)(e.target.files)}
       />
-      <button onClick={() => showFileDialog()}>Upload</button>
+      <Button {...props} onClick={() => showFileDialog()} />
     </div>
+
   );
 };

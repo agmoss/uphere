@@ -22,7 +22,13 @@ type Up = {
   fileType: string,
 }
 
-export class UpHere {
+interface IUpHere{
+  account:string;
+  accountSas:string;
+  containerName:string;
+}
+
+export class UpHere implements IUpHere {
   account: string;
 
   accountSas: string;

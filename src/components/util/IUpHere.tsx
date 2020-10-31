@@ -1,4 +1,4 @@
-export interface IUpHere {
+export interface IUpHereComponent {
   accountName: string;
   accountSas: string;
   containerName: string;

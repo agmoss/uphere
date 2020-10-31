@@ -1,8 +1,12 @@
 import { UpHere } from '../../UpHere';
-import { IUpHere } from './IUpHere';
+import { IUpHereComponent } from './IUpHere';
 
+/**
+ * @param {Pick<IUpHereComponent, 'multiple' | 'onError' | 'onSuccess'>} opts
+ * @param {UpHere} upHere
+ */
 export const uploadFiles = (
-  opts: Pick<IUpHere, 'multiple' | 'onError' | 'onSuccess'>,
+  opts: Pick<IUpHereComponent, 'multiple' | 'onError' | 'onSuccess'>,
   upHere: UpHere,
 ) => async (files: FileList | null) => {
   const { multiple, onSuccess, onError } = opts;

@@ -1,9 +1,9 @@
 import React, { ComponentType, useRef } from 'react';
-import { IUpHere } from './util/IUpHere';
+import { IUpHereComponent } from './util/IUpHere';
 import { UpHere } from '../UpHere';
 import { uploadFiles } from './util/uploadFiles';
 
-export const withUpHere = (p: IUpHere) => <T extends object>(
+export const withUpHere = (p: IUpHereComponent) => <T extends object>(
   WrappedComponent: ComponentType<T>,
 ): React.FC<T> => ({ ...props }) => {
     const {
@@ -27,7 +27,7 @@ export const withUpHere = (p: IUpHere) => <T extends object>(
           style={{ display: 'none' }}
           ref={inputFileRef}
           type="file"
-          multiple={false}
+          multiple={multiple}
           onChange={(e) => uploadFiles({ multiple, onError, onSuccess }, upHere)(e.target.files)}
         />
         <WrappedComponent {...(props as T)} />
