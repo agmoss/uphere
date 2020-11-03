@@ -4,14 +4,15 @@ import { UpHere } from '../UpHere';
 import { IUpHereComponent } from './util/IUpHere';
 import { uploadFiles } from './util/uploadFiles';
 
-export const SimpleUpload: React.FC<IUpHereComponent> = ({
+export const Upload: React.FC<IUpHereComponent> = ({
   accountName,
   accountSas,
   containerName,
   multiple,
   onSuccess,
   onError,
-}: IUpHereComponent) => {
+  children,
+}: React.PropsWithChildren<IUpHereComponent>) => {
   const upHere = new UpHere(accountName, accountSas, containerName);
 
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -27,7 +28,7 @@ export const SimpleUpload: React.FC<IUpHereComponent> = ({
         multiple={multiple}
         onChange={(e) => uploadFiles({ multiple, onError, onSuccess }, upHere)(e.target.files)}
       />
-      <button onClick={() => showFileDialog()}>Upload</button>
+      <div onClick={() => showFileDialog()}>{children}</div>
     </div>
   );
 };

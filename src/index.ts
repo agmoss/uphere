@@ -1,4 +1,4 @@
 export { UpHere } from './UpHere';
-export { SimpleUpload } from './components/SimpleUpload';
+export { Upload } from './components/Upload';
 export { withUpHere } from './components/withUpHere';
 export { UpHereButton } from './components/Button';

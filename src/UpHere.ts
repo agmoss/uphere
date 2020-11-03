@@ -11,7 +11,7 @@ import {
   Left,
 } from 'fp-ts/lib/Either';
 
-type __UpHere__<T> = Right<T> | Left<Error>
+type __UpHere__<Up> = Right<Up> | Left<Error>
 
 type Up = {
   url: string,
